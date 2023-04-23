@@ -15,6 +15,7 @@ var score_file = "user://sledhighscore.txt"
 var highscore = 0
 var werover = 0
 var accum=0
+var airtime=0
 func _physics_process(delta):
 	set_process_input(true)
 	accum += delta
@@ -40,10 +41,17 @@ func _physics_process(delta):
 	if Input.is_action_pressed("move_right"):
 		dir += cam_xform.basis[0]
 	if Input.is_action_pressed("move_up"):
-		hvel_float_1 = 10
-		vel.y += 10
-		var hvel = vel
-		hvel.y = hvel_float_1
+		if airtime < 5:
+			airtime += 1
+			hvel_float_1 += 1
+			vel.y += 1
+			hvel_float_1 = fmod(hvel_float_1, 10)
+			vel.y = fmod(hvel_float_1, 10)
+		else:
+			hvel_float_1 = -1
+			vel.y = -1
+
+
 	if Input.is_action_pressed("pause"):
 		get_tree().paused = true
 		pauselabel.show()

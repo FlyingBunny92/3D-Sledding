@@ -15,6 +15,7 @@ var score_file = "user://sledhighscore.txt"
 var highscore = 0
 var werover = 0
 var accum=0
+var airtime=0
 func _physics_process(delta):
 	set_process_input(true)
 	accum += delta
@@ -26,6 +27,10 @@ func _physics_process(delta):
 	var rightbutton = get_node('/root/world/right')
 	var leftbutton = get_node('/root/world/left')
 	# mobile input
+	randomize()
+	# var rand_float_1 = randf()
+	var rand_float_1 = 1
+	var hvel_float_1 = 1
 	if rightbutton.is_pressed() ==true:
 		dir += cam_xform.basis[0]
 	if leftbutton.is_pressed() ==true:
@@ -35,15 +40,27 @@ func _physics_process(delta):
 		dir += -cam_xform.basis[0]
 	if Input.is_action_pressed("move_right"):
 		dir += cam_xform.basis[0]
+	if Input.is_action_pressed("move_up"):
+		if airtime < 5:
+			airtime += 1
+			hvel_float_1 += 1
+			vel.y += 1
+			hvel_float_1 = fmod(hvel_float_1, 10)
+			vel.y = fmod(hvel_float_1, 10)
+		else:
+			hvel_float_1 = -1
+			vel.y = -1
+
+
 	if Input.is_action_pressed("pause"):
 		get_tree().paused = true
 		pauselabel.show()
 	dir += -cam_xform.basis[2]
 	dir.y = 0
 	dir = dir.normalized()
-	vel.y += delta * g
+	vel.y += delta * g * rand_float_1
 	var hvel = vel
-	hvel.y = 0
+	hvel.y = hvel_float_1
 	var sfxpop = get_node('/root/world/wind')
 	sfxpop.set_volume_db(vel.x * 0.3)
 	var target = dir * MAX_SPEED

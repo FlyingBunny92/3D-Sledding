@@ -35,10 +35,10 @@ func _on_backtomenu_pressed():
 
 
 func _on_clearscore_pressed():
-     var f = File.new()
-     f.open(score_file, File.WRITE)
-     f.store_string(str(0))
-     f.close()
-     var labels = get_node('/root/Node2D/Label')
-     labels.set_text(str(0))
+	 var f = File.new()
+	 f.open(score_file, File.WRITE)
+	 f.store_string(str(0))
+	 f.close()
+	 var labels = get_node('/root/Node2D/Label')
+	 labels.set_text(str(0))
 

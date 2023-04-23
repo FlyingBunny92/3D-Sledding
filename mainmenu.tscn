@@ -107,6 +107,7 @@ text = "John 3:16 For God so loved the world that he gave his one and only Son, 
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="pressed" from="Button" to="Button" method="_on_Button_pressed"]
 [connection signal="pressed" from="Button4" to="Button4" method="_on_board_pressed"]
 [connection signal="pressed" from="Button3" to="Button3" method="_on_credits_pressed"]
